@@ -12,6 +12,11 @@ LATEST_SLACK_AUR_VERSION=($(curl -s https://aur.archlinux.org/rpc/v5/info\?arg\[
 SLACK_AUR_FRESHNESS=($(vercmp $CURRENTLY_INSTALLED_SLACK_VERSION $LATEST_SLACK_AUR_VERSION))
 NEED_TO_UPDATE_ELECTRON=0
 
+if [[ ! $(command -v gum) ]]; then
+    echo -e "${RED}[*] Dependency missing: gum${ENDCOLOR}"
+    exit 1
+fi
+
 if [[ "$SLACK_AUR_FRESHNESS" -eq 0 ]]; then
     SLACK_AUR_FRESHNESS_STRING="${GREEN}Up-to-date${ENDCOLOR}"
 elif [[ "$SLACK_AUR_FRESHNESS" -eq -1 ]]; then
