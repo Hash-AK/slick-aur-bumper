@@ -47,7 +47,7 @@ fi
 if [[ ( -v "$SLACK_AUR_ELECTRON_SHORT" && "$SLACK_AUR_ELECTRON_SHORT" -gt "$slick_mod_electron_version") || "$CURRENTLY_INSTALLED_SLACK_ELECTRON_SHORT" -gt "$slick_mod_electron_version" ]]; then
     NEED_TO_UPDATE_ELECTRON=1
 fi
-echo "Need to Update Electron? $NEED_TO_UPDATE_ELECTRON"
+USER_CHOICE=$(if [[ "$NEED_TO_UPDATE_ELECTRON" -eq 1 ]]; then gum choose --limit 1 -- "Do Nothing (Quit)" "Bump Slick version (for both packages)" "Bump Slick version and push (for both packages)" "Bump Slick and Electron versions" "Bump Slick and Electron versions and push (for both packages)"; else gum choose --limit 1 -- "Quit" "Bump Slick version (for both packages)" "Bump Slick version and push (for both packages)";fi )
 for package in slick-mod slick-mod-bundled
     do
         echo "[*] Starting $package update..."
